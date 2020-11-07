@@ -1,0 +1,81 @@
+<div>
+  <a style="text-decoration: none;color: black" [routerLink]="['/webstore/product-price']">
+    <button class="image-button warning icon-right" style="margin-left: 80%;margin-top: 3%">
+      <span class="mif-assignment icon"></span>
+      <span class="caption fg-black">Price List</span>
+    </button>
+  </a>
+
+  <div class="row mt-10 mb-8">
+    <div *ngFor="let item of products" class="card image-header mt-3 cell-sm-3 cell-md-3 cell-lg-3">
+      <div class="card-header fg-white" [ngStyle]="{'background-image':'url('+ item.imgPath +')'}"></div>
+      <div class="card-content p-2 text-just">
+        <p class="fg-darkAmber">{{item.productName}}</p>
+        {{item.description}}
+      </div>
+      <div class="info-button success bd-green rounded">
+        <a class="button" (click)="addToCart(item)"><span class="mif-cart"></span> Star</a>
+        <a href="#" class="info">Unit:{{item.unitsPerCarton}} Rs:{{item.price}} </a>
+      </div>
+    </div>
+    <div class="pos-top-center mt-5 cell-xl-10 cell-sm-10 cell-md-10">
+      <div class="cell-sm-12 cell-md-12 cell-xl-12 border bd-gray border-radius">
+        <div class="row">
+          <table class="table striped" *ngIf="getmyCartItem">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Product</th>
+              <th>Add Quantity</th>
+              <th>Add</th>
+              <th>Price</th>
+              <th>Remove</th>
+              <th>
+                <button class="image-button alert rounded min" (click)="removeMyCart()">
+                  <span class="mif-bin icon"></span>
+                  <span class="caption">Clear-Cart</span>
+                </button>
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let cartItem of getmyCartItem let i = index">
+              <td>{{i}}</td>
+              <td>{{cartItem.productName}}</td>
+              <td><input [(ngModel)]="cartItem.requestQty" name="requestQty" (keyup)="getPrice(cartItem)"></td>
+              <td>
+                <button class="button primary mini rounded" (click)="check(cartItem)">Add</button>
+              </td>
+              <td>{{cartItem.discountAfterprice}}</td>
+              <td>
+                <a href="#" style="text-decoration: none" class="mif-bin icon" (click)="removeItem(i)"></a>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colspan="3"><span class="text-leader2 text-bold">Total</span></td>
+              <td>{{sum}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cell-sm-12 cell-md-12  cell-xl-12 border bd-gray border-radius">
+          <table *ngIf="priceResponse">
+            <h4>Price Information</h4>
+            <tbody>
+            <tr>
+              <td>Description : {{priceResponse.discountDescription}}</td>
+            </tr>
+            <tr>
+              <td>Discount : Rs :{{priceResponse.discount}}</td>
+            </tr>
+            <tr>
+              <td>Rs: {{priceResponse.discountAfterprice}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

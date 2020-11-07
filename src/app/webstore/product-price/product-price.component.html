@@ -1,0 +1,47 @@
+<div>
+  <a style="text-decoration: none;color: black" [routerLink]="['/webstore/shopping-cart']">
+    <button class="image-button warning icon-right" style="margin-left: 80%;margin-top: 3%">
+      <span class="mif-cart icon"></span>
+      <span class="caption fg-black">Go To Cart</span>
+    </button>
+  </a>
+  <div class="pos-top-center mt-5 cell-xl-10 cell-sm-10 cell-md-10">
+    <div class="cell-sm-12 cell-md-12 cell-xl-12 border bd-gray border-radius">
+      <form #productPriceForm="ngForm" (ngSubmit)="priceSearch(productPriceForm)">
+        <div class="row">
+          <div class="cell-sm-4 cell-md-4 cell-xl-4">
+            <select [(ngModel)]="product" name="product">
+              <option *ngFor="let item of products" [ngValue]="item.id">{{item.productName}}</option>
+            </select>
+          </div>
+          <div class="cell-sm-4 cell-md-4 cell-xl-4">
+            <button type="submit" class="button success button">Search</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <table class="table striped" *ngIf="priceList">
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Product</th>
+            <th>Units</th>
+            <th>Price</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let price of priceList">
+            <td>{{price.id}}</td>
+            <td>{{price.name}}</td>
+            <td>{{price.unit}}</td>
+            <td>{{price.price}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
